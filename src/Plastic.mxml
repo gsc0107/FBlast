@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+
+Plastic - Flex 4 theme built using Adobe Flash Catalyst Beta 2.
+by Harish Sivaramakrishnan (flexgeek) http://blog.flexgeek.in
+If you find sizing issues with any of the components, drop me
+an email hsivaramakrishnan@gmail.com
+
+*/
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/halo" minWidth="1024" minHeight="768">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Style source="Plastic.css"/>
+	<s:Button x="27" y="40" label="Button" width="100" height="25"/>
+	<s:ToggleButton x="27" y="72" label="Toggle Button" width="100" height="25"/>
+	<s:CheckBox x="27" y="105" width="98" label="Check Box"/>
+	<s:RadioButton x="27" y="131" width="127" label="Radio Button"/>
+	<s:HSlider x="27" y="157"/>
+	<s:VSlider x="139" y="66"/>
+	<s:HScrollBar x="27" y="178" width="336"/>
+	<s:List x="27" y="203" styleName="menuList" height="48">
+		<s:ArrayCollection>
+			<fx:String>Menu 1</fx:String>
+			<fx:String>Menu 2</fx:String>
+			<fx:String>Menu 3</fx:String>
+			<fx:String>Menu 4</fx:String>
+		</s:ArrayCollection>
+	</s:List>
+	<s:List x="189" y="26" height="141" width="174" styleName="defaultList">
+		<s:layout>
+			<s:VerticalLayout gap="0"/>
+		</s:layout>
+		<s:ArrayCollection>
+			<fx:String>Orange</fx:String>
+			<fx:String>Apple</fx:String>
+			<fx:String>Grapes</fx:String>
+			<fx:String>Fig</fx:String>
+			<fx:String>Blue Berry</fx:String>
+			<fx:String>Raspberry</fx:String>
+			<fx:String>Custard Apple</fx:String>
+			<fx:String>Pineapple</fx:String>
+			<fx:String>Strawberry</fx:String>
+			<fx:String>Gooseberry</fx:String>
+			<fx:String>Guava</fx:String>
+			<fx:String>Peach</fx:String>
+			<fx:String>Pear</fx:String>
+		</s:ArrayCollection>
+	</s:List>
+	<s:Label x="29" y="268" text="Plastic" fontSize="40" color="#000000"/>
+	<s:Label x="31" y="299" text="by flexgeek" fontSize="26" color="#A3A4A4"/>
+</s:Application>

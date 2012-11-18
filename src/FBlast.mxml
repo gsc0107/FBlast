@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600"  xmlns:flexlib="http://code.google.com/p/flexlib/"  preloader="preload.CustomPreloader" creationComplete="initVars();"  >
+	<fx:Script>
+		<![CDATA[
+			import components.DataList1;
+			import components.RepeatedItem1;
+			
+			import itemrenders.positive;
+			
+			import mx.collections.HierarchicalData;
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:HTTPService id="httpService"
+						useProxy="false"  
+						url="FBlast.json"  
+						fault="handlegetInitialconfigFault(event)"  
+						result="handlegetinitialconfigResults(event)" />
+		<mx:HTTPService id="httpBlastService"
+						useProxy="false" 
+						method="POST"
+						resultFormat="e4x"
+						showBusyCursor="true" 
+						fault="handlegetInitialconfigFault(event)"  
+						result="httpBlastServiceResults(event)" /> 
+	
+	</fx:Declarations>
+	<fx:Style source="style.css"/>
+	<fx:Script source="FBlastMain.as"></fx:Script> 
+	<!--"name":"BLAT - BLAT sequence search tool","program":"blat"-->
+	
+	
+	
+	<mx:VBox height="100%"  width="100%">
+		
+		
+		<flexlib:WindowShade id="ws1" 
+							 tabChildren="{ws1.opened}"
+							 styleName="linkButtonWindowShade"
+							 label=""
+							 width="100%">
+			<mx:Form>
+				<mx:FormItem label="" horizontalAlign="left">
+					<s:Label text="Populus Blast"/>
+				</mx:FormItem>	
+				<mx:FormItem label="Select program:" horizontalAlign="left">
+					<mx:HBox width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+						
+					<mx:ComboBox change="programDropDownChange();"  id="programDropDown" labelField="name" dataProvider="{programArrayCol}"   x="67" y="81" width="373"/>
+					<s:Button label="?" toolTip="Select respective program"  skinClass="components.Button5" x="448" y="76"/>
+					</mx:HBox>
+				</mx:FormItem>
+				<mx:FormItem label="Query sequence:">
+			<mx:VBox width="100%">
+	
+					<mx:HBox width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+						
+					<s:TextArea id="blastTxtinput" text=">POPTR_0020s00420.1
+								ATGGATATCGTGAGAAGGTTGGTTGCGGACAGGCCAGTGGTGATTTTTAGCAGGAGCACTTGTTGCATGAGCCACTCCATTAAAACACTTATATCTAGCTTTGGGGCAAATCCTACAGTTTATGAGCTAGATCAAATTCCAAACGGGAAGCAAATTGAAAGAGCATTAGTACAGCAGCTAGGATGTCAGCCAAGTGTACCAACTGTTTTCATAGGCCAAGAGTTTGTTGGTGGTGATAAGCAAGTCATGAGCTTACAAGTCAGGAATGAGCTAGGCTCTTTGCTTAGGAAGGCAGGAGCTATATGGATTTGA" width="612" height="200"   x="67" y="136">
+					</s:TextArea>
+						<s:Button label="?" toolTip="input fasta format string"  skinClass="components.Button5" x="692" y="136"/>
+					</mx:HBox>
+				<mx:HBox width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+				<mx:Spacer width="505"/>
+				<s:Button skinClass="components.Button1"  click="loadFile();" toolTip="Import CSV for fasta file" label="Import" width="100" height="36"  x="617" y="353" />
+		</mx:HBox>
+</mx:VBox>
+				</mx:FormItem>
+				<mx:FormItem label="Select Database:">
+					<mx:HBox width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+					<mx:VBox visible="{programDropDown.selectedItem.program.toString()!='blat'}" id="blastVbox" top="195" focusColor="#ff5800" x="752">
+						<mx:Repeater id="rp" dataProvider="{(programDropDown.selectedItem.program.toString()=='blastp' || programDropDown.selectedItem.program.toString()=='blastx')?peptide_checkBoxArrayCol:nucleotide_checkBoxArrayCol}">
+							<!--create the check box using the current object's label value as the label.  Call the
+							get checked function passing it the current object's data value to determine if selected 
+							equals true or false.  Call updateAudience function passing it the object that was used
+							to create this check box when the user clicks on the check box-->
+							<mx:CheckBox label="{rp.currentItem.label}" selected="{getChecked(rp.currentItem.data)}" 
+										 click="updateAudience(event.currentTarget.getRepeaterItem())">
+							</mx:CheckBox>
+						</mx:Repeater>
+					</mx:VBox>
+					<s:Button label="?" toolTip="Select at least one dataset." skinClass="components.Button5" x="980" y="162"/>
+						</mx:HBox>
+				</mx:FormItem>
+	<mx:FormItem>
+				<mx:HBox visible="{!ws2.opened}"  width="100%">
+					<mx:Spacer width="505"/>
+					<s:Button  visible="{programDropDown.selectedItem.program.toString()!='blat'}" click="BlastClick('hi');"  width="100" height="36"   y="353" skinClass="components.Button1"  label="BLAST"/>
+				</mx:HBox>
+	</mx:FormItem>
+			</mx:Form>
+		</flexlib:WindowShade>
+
+		<flexlib:WindowShade id="ws2"
+							 tabChildren="{ws2.opened}"
+							 styleName="linkButtonWindowShade"
+							 label="Advanced Parameters"
+							 opened="false"
+							 width="100%">
+			<mx:Form width="100%">
+				<mx:FormItem  width="100%">
+					</mx:FormItem>
+				<mx:FormItem label="Scoring matrix:" width="100%">
+					<mx:ComboBox>
+						<mx:ArrayCollection>
+							<fx:String>BLOSUM62</fx:String>
+							<fx:String>PAM30</fx:String>
+							<fx:String>PAM70</fx:String>
+							<fx:String>BLOSUM80</fx:String>
+							<fx:String>BLOSUM45</fx:String>
+						</mx:ArrayCollection>
+						</mx:ComboBox>
+						
+					
+				</mx:FormItem>
+				
+				<mx:FormItem label="Filtering:">
+					<mx:HBox>
+						<mx:CheckBox label="Low complexity"/>
+						<mx:CheckBox label="Lower-case letters"/>
+					</mx:HBox>
+				</mx:FormItem>
+				
+				
+				<mx:FormItem label="E-value cutoff:" width="100%">
+					<mx:ComboBox>
+						<mx:ArrayCollection>
+							<fx:String>1e-3</fx:String>
+							<fx:String>1e-30</fx:String>
+							<fx:String>1e-10</fx:String>
+							<fx:String>1e-5</fx:String>
+							<fx:String>0.1</fx:String>
+							<fx:String>10</fx:String>
+						</mx:ArrayCollection>
+						</mx:ComboBox>
+				</mx:FormItem>
+				
+				<mx:FormItem label="Advanced Options:">
+					<mx:HBox>
+						<mx:CheckBox label="ungapped"/>
+						<mx:CheckBox label="megablast"/>
+					</mx:HBox>
+				</mx:FormItem>
+				
+	<!--			<mx:FormItem label="Query genetic code:">
+					<mx:ComboBox>
+						<mx:ArrayCollection>
+							<fx:String>1e-3</fx:String>
+							<fx:String>1e-30</fx:String>
+							<fx:String>1e-10</fx:String>
+							<fx:String>1e-5</fx:String>
+							<fx:String>0.1</fx:String>
+							<fx:String>10</fx:String>
+						</mx:ArrayCollection>
+					</mx:ComboBox>
+				</mx:FormItem>				
+				
+				<mx:FormItem label="DB genetic code:">
+					<mx:ComboBox>
+						<mx:ArrayCollection>
+							<fx:String>1e-3</fx:String>
+							<fx:String>1e-30</fx:String>
+							<fx:String>1e-10</fx:String>
+							<fx:String>1e-5</fx:String>
+							<fx:String>0.1</fx:String>
+							<fx:String>10</fx:String>
+						</mx:ArrayCollection>
+					</mx:ComboBox>
+				</mx:FormItem>	-->
+				<mx:FormItem label="Frame shift penalty:">
+					<mx:TextInput />
+					</mx:FormItem>
+				
+				<mx:FormItem>
+					<mx:HBox  width="100%">
+						<mx:Spacer width="505"/>
+						<s:Button  visible="{programDropDown.selectedItem.program.toString()!='blat'}" click="BlastClick('hi');"  width="100" height="36"   y="353" skinClass="components.Button1"  label="BLAST"/>
+					</mx:HBox>
+				</mx:FormItem>
+			</mx:Form>
+			
+		</flexlib:WindowShade>
+		
+	</mx:VBox>
+	
+	
+	
+	
+	
+	<s:RadioButton visible="false" groupName="blastblatrd" label="BLAST" x="164" y="50" selected="true"/>
+	<s:RadioButton  visible="false" groupName="blastblatrd" label="BLAT" x="160" y="50"/>
+		
+	
+	
+	<mx:LinkButton bottom="10" right="20" click="navigatetoXML();" label="{'http://'+resultXMLLink}" visible="{resultXMLLink!=''?true:false}"/>
+
+	<mx:Tree visible="false" labelField="Hit_hsps"  dataProvider="{xmlListCollection}"  x="1064"  y="0" width="100%" height="100%"/>
+	<mx:AdvancedDataGrid visible="false" id="pppp" itemClick="clickadg();" width="50%" height="50%" bottom="0" right="0"   > 
+
+		<mx:dataProvider>
+			<mx:HierarchicalData source="{xmlListCollection}" 
+					/>
+		</mx:dataProvider>
+
+		
+		<mx:columns>
+			
+			<mx:AdvancedDataGridColumn  id="reps"  dataField="Hit_hsps" 
+										headerText="Hit_hsps"/>
+			<!--	<mx:AdvancedDataGridColumn  id="rep"  dataField="Hsp" 
+									   headerText="Hsp"/>
+			<mx:AdvancedDataGridColumn    dataField="Iteration_query-def" 
+										headerText="Iteration_query-def"/>
+			
+			<mx:AdvancedDataGridColumn dataField="Hit_id" 
+									   headerText="Hit_id"/>-->
+			<mx:AdvancedDataGridColumn dataField="Hsp_qseq" 
+									   headerText="Hsp_qseq"/>
+			<!--<mx:AdvancedDataGridColumn  dataField="Statistics_db-num>" 
+									   headerText="Statistics_db-num>"/>
+			<mx:AdvancedDataGridColumn dataField="Iteration_query-def" 
+									   headerText="Iteration_query-def"/>
+			<mx:AdvancedDataGridColumn dataField="Hit_num" 
+									   headerText="Hit_num"/>
+			<mx:AdvancedDataGridColumn dataField="Iteration" 
+									   headerText="Iteration"/>-->
+			
+			
+			
+			
+			
+
+		
+		</mx:columns>
+	</mx:AdvancedDataGrid>
+	<mx:TitleWindow close="{resultsTitleWIndow.visible=false}" visible="false" showCloseButton="true" id="resultsTitleWIndow" width="100%" height="100%" title="Blast Results                   ">
+		<mx:TabNavigator width="100%"
+						 height="100%"
+						 paddingTop="0"
+						 backgroundColor="#666666">
+			<s:NavigatorContent  width="100%" height="100%"  label="Tree View">
+	<mx:AdvancedDataGrid id="treeAdg" width="100%" height="100%" bottom="0" right="0"  displayItemsExpanded="false"
+					 initialize="gc.refresh();"	 		 variableRowHeight="true"			 >
+		<mx:dataProvider>
+			<mx:GroupingCollection2 id="gc" source="{provider}">
+				<mx:grouping>
+					<mx:Grouping>
+						<mx:GroupingField name="Iteration_query"/>
+						
+					
+					<mx:GroupingField name="Hit_def">
+							<mx:summaries>
+								<mx:SummaryRow summaryPlacement="group">
+									<mx:fields>
+										<mx:SummaryField2 dataField="Identities" 
+														  summaryOperation="AVG"	  		 label="Identities" />
+										<mx:SummaryField2 dataField="Positive"  
+												summaryOperation="AVG"		  label="Positive" />
+										<mx:SummaryField2 dataField="Gaps"  
+											 			  summaryOperation="AVG"		  label="Gaps" />
+										<mx:SummaryField2 dataField="Hsp_bitscore"  
+														  summaryOperation="AVG"		  label="Hsp_bitscore" />
+										<!--<mx:SummaryField2 dataField="Hsp_evalue"  
+														  summaryOperation="AVG"		  label="Hsp_evalue" />-->
+									</mx:fields>
+								</mx:SummaryRow>
+							</mx:summaries>
+						</mx:GroupingField>
+
+						
+					</mx:Grouping>
+				</mx:grouping>
+				
+			</mx:GroupingCollection2>
+		</mx:dataProvider>        
+		
+		<mx:columns>
+			
+			
+		
+		
+		<mx:AdvancedDataGridColumn headerText="Sequences producing significant alignments"  width="300" dataField="Hit_def" />
+			<mx:AdvancedDataGridColumn id="Identities"   sortable="true"  headerText="Identities" width="150" dataField="Identities" />
+			<mx:AdvancedDataGridColumn id="Positive"  sortable="true"  width="150" dataField="Positive" headerText="Positive" />
+		<mx:AdvancedDataGridColumn id="Gaps" sortable="true"  headerText="Gaps" width="150" dataField="Gaps" />			
+			<mx:AdvancedDataGridColumn headerText="Bit score"  id="Hsp_bitscore" width="150" dataField="Hsp_bitscore" />
+			
+			<mx:AdvancedDataGridColumn headerText="Hit Id" width="150"   dataField="hit_id" />
+			<mx:AdvancedDataGridColumn headerText="E-value" id="Hsp_evalue" dataField="Hsp_evalue" />
+			<!--			<mx:AdvancedDataGridColumn id="red" width="200" dataField="Identities" />
+				<mx:AdvancedDataGridColumn headerText="Sequence match" itemRenderer="itemrenders.cds"  />-->
+				<!--<mx:itemRenderer>
+					<fx:Component>
+							<mx:TextArea height="50" htmlText="{data.Hsp_hseqAll}"/>
+					</fx:Component>                         
+				</mx:itemRenderer>-->
+				
+			
+		</mx:columns>
+		<mx:rendererProviders>	
+			<mx:AdvancedDataGridRendererProvider dataField="Identities"
+												 column="{Identities}"
+												  depth="2"
+												 renderer="itemrenders.identitiessummary"/>
+			<mx:AdvancedDataGridRendererProvider dataField="Gaps"
+												 column="{Gaps}"
+												 depth="2"
+												 renderer="itemrenders.gapssummary"/>
+			<mx:AdvancedDataGridRendererProvider dataField="Positive"
+												 column="{Positive}"
+												 depth="2"
+												 renderer="itemrenders.positivesummary"/>
+			<mx:AdvancedDataGridRendererProvider dataField="Hsp_bitscore" 
+												 column="{Hsp_bitscore}"
+												 depth="2" renderer="itemrenders.hspsummary"
+												 />
+		<!--	<mx:AdvancedDataGridRendererProvider dataField="Hsp_evalue" 
+												 column="{Hsp_evalue}"
+												 depth="2" renderer="itemrenders.evaluesummary"
+												 />-->
+			<mx:AdvancedDataGridRendererProvider dataField="Identities"
+												column="{Identities}"
+												 depth="3"
+												 renderer="itemrenders.identities"/>
+			<mx:AdvancedDataGridRendererProvider dataField="Positive"
+												 column="{Positive}"
+												 depth="3"
+												 renderer="itemrenders.positive"/>
+			<mx:AdvancedDataGridRendererProvider dataField="Gaps"
+												 column="{Gaps}"
+												 depth="3"
+												 renderer="itemrenders.gaps"/>
+		
+		</mx:rendererProviders>
+		
+		
+		
+	</mx:AdvancedDataGrid>
+</s:NavigatorContent>
+		<s:NavigatorContent  width="100%" height="100%"  label="Grid View">
+			<mx:VBox  width="100%" height="100%"  verticalGap="0" horizontalGap="0" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+				
+			
+	
+		<mx:AdvancedDataGrid id="gridDg"  dataProvider="{provider}" width="100%" height="80%" >
+<mx:columns>
+	<mx:AdvancedDataGridColumn width="150" dataField="Iteration_query" />
+	<mx:AdvancedDataGridColumn  dataField="Hit_def" />
+			<mx:AdvancedDataGridColumn width="100" dataField="Hsp_evalue" />
+			<mx:AdvancedDataGridColumn width="100" dataField="Hsp_bitscore" />
+			<mx:AdvancedDataGridColumn itemRenderer="itemrenders.positive" sortable="true" width="100" dataField="Positive" headerText="Positive" />
+			<mx:AdvancedDataGridColumn itemRenderer="itemrenders.identities" sortable="true"  headerText="Identities" width="100" dataField="Identities" />
+			<mx:AdvancedDataGridColumn itemRenderer="itemrenders.gaps" sortable="true"  headerText="Gaps" width="100" dataField="Gaps" />
+</mx:columns>
+		</mx:AdvancedDataGrid>
+							
+				<mx:TextArea height="20%" text="{gridDg.selectedItem.Hsp_hseqAll.toString()}" styleName="textareafont" editable="false" borderAlpha="0"    wordWrap="true" horizontalScrollPolicy="off" verticalScrollPolicy="off" width="100%"/>
+			
+				
+				
+			</mx:VBox>
+		</s:NavigatorContent>
+			<s:NavigatorContent  width="100%" height="100%"  label="Graph View">
+				<mx:HBox height="100%" backgroundColor="#FFFFFF"  left="0" width="100%" id="p4"/>
+				<s:Button click="CreatePlotChart()" label="hit"/>
+				
+				</s:NavigatorContent>
+			
+			
+		</mx:TabNavigator>
+	</mx:TitleWindow>
+	
+	
+		
+
+	
+	
+<!--	<controls:TreeGrid showRoot="true" right="0" width="600" height="400"  id="treeGrid1" verticalTrunks="dotted"  dataProvider="{xmlListCollection}" >
+		
+		<controls:columns>
+	
+			
+			<code:TreeGridColumn   dataField="Iteration_query-def"/>
+			
+		</controls:columns>
+		</controls:TreeGrid>
+	<mx:Button label="Close All nodes" 
+			   click="treeGrid1.closeAllItems();" horizontalCenter="-447" top="544"/> -->
+	<mx:ProgressBar right="{(this.parent.width/2)-100}" id="progbar" width="200" top="{(this.parent.height/2)-25}" indeterminate="true" minimum="0" maximum="100" label="Processing..." visible="false" height="70"/>
+</s:Application>

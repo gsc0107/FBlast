@@ -1,0 +1,344 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+.linkButtonWindowShade {
+	headerClass:ClassReference('mx.controls.LinkButton');
+	header-style-name: linkButtonStyle;
+	header-text-align:left;
+	drop-shadow-enabled:true;
+	
+	corner-radius:10;
+	border-style:solid;
+	
+	background-color:#efefef;
+	background-alpha:.7;
+}         
+
+.linkButtonStyle {
+	corner-radius:10;	
+	fill-alphas:1,1;
+	padding-left:10;
+	label-placement:left;
+	
+}
+
+mx|Form {
+	padding-top:0;
+	padding-bottom:5;	
+}
+
+
+@font-face { 
+	src: url("COUR.TTF"); 
+	fontFamily: btFontFamily; 
+	embedAsCFF: false; 
+	color:#00ff00;
+}
+@font-face { 
+	src: url("GillSans_Regular.ttf"); 
+	fontFamily: gillsans; 
+	embedAsCFF: false; 
+	color:#000000;
+}
+.textareafont{
+	fontFamily: btFontFamily;
+	font-size:14;
+	font-thickness:200;
+	font-sharpness:-50;
+	font-grid-fit-type:subpixel;
+}
+.closeButton {
+	icon: Embed(source="/assets/close.png");
+	skin: ClassReference(null); 
+}
+@font-face{ 
+	font-family: localVerdana;
+	font-weight: normal;
+	src: url("GillSans_Regular.ttf");
+	embedAsCFF: false;
+}
+.linechart
+{
+	fontFamily: localVerdana;
+	fontSize:10;
+	
+}
+
+s|RadioButton{
+	font-weight:bold;
+}
+mx|CheckBox{
+	font-weight:bold;
+}
+
+/*mx|AdvancedDataGrid{
+	
+	border-style: none;
+	selection-color: #FFFFFF;
+	roll-over-color: #C1FFC5;
+	alternating-item-colors: #F4FBFF, #FFFFFF;
+
+}
+.goTextArea{
+	font-weight:bold;
+	selection-color: #7CFF77;
+	roll-over-color: #C1FFC5;
+	text-roll-over-color:#7CFF77;
+	
+		
+	}*/
+mx|ComboBox{
+	fontFamily: gillsans;
+	font-size:12;
+	font-thickness:-105;
+	font-sharpness:-400;
+	font-anti-alias-type:advanced;
+}
+s|TextArea{
+	fontFamily: gillsans;
+	font-size:12;
+	font-thickness:-105;
+	font-sharpness:-400;
+	font-anti-alias-type:advanced;
+}
+mx|AdvancedDataGrid{
+	
+	fontFamily: gillsans;
+	font-size:12;
+	font-thickness:-105;
+	font-sharpness:-400;
+	font-anti-alias-type:advanced;
+}
+.goTextArea{
+	font-weight:bold;
+
+	
+}
+.textareaextendfont{
+	fontFamily: gillsans;
+	font-size:12;
+	font-thickness:-105;
+	font-sharpness:-400;
+	font-anti-alias-type:advanced;
+}
+
+.extendedDataGrid{
+	/*background-attachment:Embed(source="/preload/welcomes.png");
+	background-image:Embed(source="/preload/welcomes.png");*/
+	content-background-color:#FF0000;
+	background-color:#FF0000;
+	fontFamily: gillsans;
+	font-size:12;
+	font-thickness:-105;
+	font-sharpness:-400;
+	font-anti-alias-type:advanced;
+}
+
+
+
+
+.radiusCBDropdown {
+	height: 2000;
+}   
+mx|ToolTip {
+	fontFamily: gillsans;
+	font-size:13;
+	font-thickness:-105;
+	font-sharpness:-400;
+	font-anti-alias-type:advanced;
+	background-color: #6C9270;
+	color:#ffffff;	
+}
+/****/
+mx|CheckBox{
+	disabledIcon: Embed(source="AeonGraphical.swf", symbol="CheckBox_disabledIcon");
+	downIcon: Embed(source="AeonGraphical.swf", symbol="CheckBox_downIcon");
+	overIcon: Embed(source="AeonGraphical.swf", symbol="CheckBox_overIcon");
+	selectedDisabledIcon: Embed(source="AeonGraphical.swf", symbol="CheckBox_selectedDisabledIcon");
+	selectedDownIcon: Embed(source="AeonGraphical.swf", symbol="CheckBox_selectedDownIcon");
+	selectedOverIcon: Embed(source="AeonGraphical.swf", symbol="CheckBox_selectedOverIcon");
+	selectedUpIcon: Embed(source="AeonGraphical.swf", symbol="CheckBox_selectedUpIcon");
+	upIcon: Embed(source="AeonGraphical.swf", symbol="CheckBox_upIcon");
+	
+	textRollOverColor: #3f940c;
+	
+}
+mx|TabNavigator {
+	backgroundColor: #ffffff;
+	borderColor: #788d70;
+	tabStyleName: "myTabs";
+	firstTabStyleName: "myTabs";
+	lastTabStyleName: "myTabs";
+	selectedTabTextStyleName: "mySelectedTabs";
+	
+}
+mx|TitleWindow
+{
+	closeButtonDisabledSkin: Embed(source="AeonGraphical.swf",symbol="CloseButtonDisabled");
+	closeButtonDownSkin: Embed(source="AeonGraphical.swf",symbol="CloseButtonDown");
+	closeButtonOverSkin: Embed(source="AeonGraphical.swf",symbol="CloseButtonOver");
+	closeButtonUpSkin: Embed(source="AeonGraphical.swf",symbol="CloseButtonUp");
+	titleBackgroundSkin: Embed(source="AeonGraphical.swf", symbol="PanelTitleBackground");
+	
+	backgroundColor: #ffffff;
+	backgroundAlpha: 0.9;
+	color: #000000; 	
+	
+}
+mx|Alert
+{
+	closeButtonDisabledSkin: Embed(source="AeonGraphical.swf",symbol="CloseButtonDisabled");
+	closeButtonDownSkin: Embed(source="AeonGraphical.swf",symbol="CloseButtonDown");
+	closeButtonOverSkin: Embed(source="AeonGraphical.swf",symbol="CloseButtonOver");
+	closeButtonUpSkin: Embed(source="AeonGraphical.swf",symbol="CloseButtonUp");
+	titleBackgroundSkin: Embed(source="AeonGraphical.swf", symbol="PanelTitleBackground");
+	
+	backgroundColor: #ffffff;
+	borderColor: #A1A5AF;
+	headerHeight: 28;
+	color: #000000;
+}
+
+
+.mypanelTitle {
+	color: #4b5f0c;
+	fontSize: 13;
+	fontWeight: bold;
+}
+
+/*
+//------------------------------
+//  ScrollBar
+//------------------------------
+*/
+mx|ScrollBar
+{
+	
+	downArrowDisabledSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_disabledSkin");
+	downArrowDownSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_downSkin");
+	downArrowOverSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_overSkin");
+	downArrowUpSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_upSkin");
+	thumbDownSkin: Embed(source="AeonGraphical.swf", symbol="ScrollThumb_downSkin");
+	thumbIcon: Embed(source="AeonGraphical.swf", symbol="ScrollBar_thumbIcon");
+	thumbOverSkin: Embed(source="AeonGraphical.swf", symbol="ScrollThumb_overSkin");
+	thumbUpSkin: Embed(source="AeonGraphical.swf", symbol="ScrollThumb_upSkin");
+	trackSkin: Embed(source="AeonGraphical.swf", symbol="ScrollTrack_Skin");
+	upArrowDisabledSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_disabledSkin");
+	upArrowDownSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_downSkin");
+	upArrowOverSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_overSkin");
+	upArrowUpSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_upSkin");
+	
+}
+
+/*
+//------------------------------
+//  HScrollBar
+//------------------------------
+*/
+mx|HScrollBar
+{
+	
+	downArrowDisabledSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_disabledSkin");
+	downArrowDownSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_downSkin");
+	downArrowOverSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_overSkin");
+	downArrowUpSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_upSkin");
+	thumbDownSkin: Embed(source="AeonGraphical.swf", symbol="ScrollThumb_downSkin");
+	thumbIcon: Embed(source="AeonGraphical.swf", symbol="ScrollBar_thumbIcon");
+	thumbOverSkin: Embed(source="AeonGraphical.swf", symbol="ScrollThumb_overSkin");
+	thumbUpSkin: Embed(source="AeonGraphical.swf", symbol="ScrollThumb_upSkin");
+	trackSkin: Embed(source="AeonGraphical.swf", symbol="ScrollTrack_Skin");
+	upArrowDisabledSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_disabledSkin");
+	upArrowDownSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_downSkin");
+	upArrowOverSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_overSkin");
+	upArrowUpSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_upSkin");
+	
+}
+
+/*
+//------------------------------
+//  VScrollBar
+//------------------------------
+*/
+mx|VScrollBar
+{
+	
+	downArrowDisabledSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_disabledSkin");
+	downArrowDownSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_downSkin");
+	downArrowOverSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_overSkin");
+	downArrowUpSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_upSkin");
+	thumbDownSkin: Embed(source="AeonGraphical.swf", symbol="ScrollThumb_downSkin");
+	thumbIcon: Embed(source="AeonGraphical.swf", symbol="ScrollBar_thumbIcon");
+	thumbOverSkin: Embed(source="AeonGraphical.swf", symbol="ScrollThumb_overSkin");
+	thumbUpSkin: Embed(source="AeonGraphical.swf", symbol="ScrollThumb_upSkin");
+	trackSkin: Embed(source="AeonGraphical.swf", symbol="ScrollTrack_Skin");
+	upArrowDisabledSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_disabledSkin");
+	upArrowDownSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_downSkin");
+	upArrowOverSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_overSkin");
+	upArrowUpSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_upSkin");
+	
+}
+mx|Tab
+{
+	
+	disabledSkin: Embed(source="AeonGraphical.swf", symbol="Tab_disabledSkin");
+	downSkin: Embed(source="AeonGraphical.swf", symbol="Tab_downSkin");
+	overSkin: Embed(source="AeonGraphical.swf", symbol="Tab_overSkin");
+	selectedDisabledSkin: Embed(source="AeonGraphical.swf", symbol="TabSelected_disabledSkin");
+	selectedDownSkin: Embed(source="AeonGraphical.swf", symbol="TabSelected_upSkin");
+	selectedOverSkin: Embed(source="AeonGraphical.swf", symbol="TabSelected_upSkin");
+	selectedUpSkin: Embed(source="AeonGraphical.swf", symbol="TabSelected_upSkin");
+	upSkin: Embed(source="AeonGraphical.swf", symbol="Tab_upSkin");
+	
+}
+/*
+//------------------------------
+//  TabNavigator
+//------------------------------
+*/
+mx|TabNavigator {
+	backgroundColor: #ffffff;
+	borderColor: #788d70;
+	tabStyleName: "myTabs";
+	firstTabStyleName: "myTabs";
+	lastTabStyleName: "myTabs";
+	selectedTabTextStyleName: "mySelectedTabs";
+	
+}
+
+.myTabs {
+	color: #5a5c59;
+	textRollOverColor: #000000;
+	
+}
+
+.mySelectedTabs {
+	color: #3f940c;
+	textRollOverColor: #3f940c;
+}
+/*
+//------------------------------
+//  ComboBox
+//------------------------------
+
+mx|ComboBox
+{
+	
+	disabledSkin: Embed(source="AeonGraphical.swf", symbol="ComboBoxArrow_disabledSkin");
+	downSkin: Embed(source="AeonGraphical.swf", symbol="ComboBoxArrow_downSkin");
+	editableDisabledSkin: Embed(source="AeonGraphical.swf", symbol="ComboBoxArrow_editableDisabledSkin");
+	editableDownSkin: Embed(source="AeonGraphical.swf", symbol="ComboBoxArrow_editableDownSkin");
+	editableOverSkin: Embed(source="AeonGraphical.swf", symbol="ComboBoxArrow_editableOverSkin");
+	editableUpSkin: Embed(source="AeonGraphical.swf", symbol="ComboBoxArrow_editableUpSkin");
+	overSkin: Embed(source="AeonGraphical.swf", symbol="ComboBoxArrow_overSkin");
+	upSkin: Embed(source="AeonGraphical.swf", symbol="ComboBoxArrow_upSkin");
+	
+	alternatingItemColors: #F4F7F0, #F4F7F0;
+	textRollOverColor: #4E4E4F;
+	selectionColor: #4E4E4F;
+	rollOverColor: #B2DC32;
+	
+}	
+*/
+
+

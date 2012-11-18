@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:MXAdvancedDataGridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+								  xmlns:s="library://ns.adobe.com/flex/spark" 
+								  xmlns:mx="library://ns.adobe.com/flex/mx" 
+								  height="100%" width="100%">
+	<!--	<s:Label id="lblData" top="0" left="0" right="0" bottom="0" text="{listData.label}" />-->
+	<fx:Declarations>
+		<mx:NumberFormatter id="numberFormatter"
+							precision="2"
+							rounding="up" />
+		
+	</fx:Declarations>		
+	<mx:VBox  width="100%"  height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		
+		
+		<fx:Script>
+			<![CDATA[
+				import mx.containers.Box;
+				import mx.formatters.NumberBaseRoundType;
+				import mx.formatters.NumberFormatter;
+				[Bindable] private var _barColor:uint = 0x00FF00;
+				
+				private function updateCurrentValue():void {
+					if(data!=null){
+						if(data.Identities<=100){
+						//	pb.setProgress(data.Identities,100);
+							// this will fade from 0 = green, to 100 = red
+							_barColor = rgbToHex(     0xFF * ( data.Identities / 100 ), // this is the red part 
+								0x00FF * ( ( 100 - data.Identities ) / 100 ), // green
+								0 ); // no blue for you!
+						}else{
+							_barColor = 0xFFFFFF;
+						}
+					}else{
+					//	pb.setProgress(0,100)
+					}
+					
+				}
+				
+				
+				
+				private function rgbToHex( R:uint, G:uint, B:uint ):uint {
+					return(R<< 16 | G << 8 | B );
+				}
+				
+				
+				
+				
+				
+				
+				
+			]]>
+		</fx:Script>
+		<mx:Text color="blue" text="{'AVG: '+data.Identities.toFixed(2)+' %'}" />
+		
+	<!--	<mx:ProgressBar  alpha="0.2" trackSkin="trackSkinBar"  chromeColor="{_barColor}"  fontSize="12"	 trackHeight="14" maximum="100" width="100%" labelPlacement="center" mode="manual" label="{data.Identities!=null?(data.Identities).toFixed(2):0} % "  id="pb" updateComplete="updateCurrentValue()"  minimum="0" />
+-->	</mx:VBox>
+</s:MXAdvancedDataGridItemRenderer>

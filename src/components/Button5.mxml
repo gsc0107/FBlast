@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark" xmlns:fx="http://ns.adobe.com/mxml/2009">
+	<fx:Metadata>[HostComponent("spark.components.Button")]</fx:Metadata>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+	</s:states>
+	<s:Ellipse y="0.5" x="0.5" height="24" width="24">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#e8dcf2" alpha="1.0" ratio="0"/>
+				<s:GradientEntry color="#c5a2e8" ratio="0.49019607843137253" alpha="1.0" ratio.down="0.47843137254901963" color.down="#ad72e8" ratio.up="0.5058823529411764" color.up="#9a81e5"/>
+				<s:GradientEntry color="#ffffff" alpha="1.0" ratio="1"/>
+			</s:LinearGradient>
+		</s:fill>
+		<s:stroke>
+			<s:LinearGradientStroke weight="1" caps="round" joints="round" miterLimit="4" rotation="90">
+				<s:GradientEntry color="#320142" alpha="1.0" ratio="0.027450980392156862"/>
+				<s:GradientEntry color="#999999" alpha="1.0" ratio="1"/>
+			</s:LinearGradientStroke>
+		</s:stroke>
+		<s:filters>
+			<s:DropShadowFilter hideObject="false" knockout="false" distance="1" color="#999999" strength="1" inner="false" blurX="1" angle="90" blurY="1" quality="2" alpha="1.0"/>
+		</s:filters>
+	</s:Ellipse>
+	<s:Ellipse y="1" x="4" height="14" width="16" alpha="0.15">
+		<s:fill>
+			<s:SolidColor color="0xFFFFFF"/>
+		</s:fill>
+	</s:Ellipse>
+	<s:Ellipse y="16" x="4" height="8" width="18" alpha="0.2">
+		<s:fill>
+			<s:SolidColor color="0xFFFFFF"/>
+		</s:fill>
+	</s:Ellipse>
+	<s:RichText color="#000000" fontFamily="Lucida Grande" fontWeight="bold" tabStops="S0 S50" text="(Label)" width="6" height="12" id="labelDisplay" x="9" y="7" fontSize="14"/>
+</s:Skin>
